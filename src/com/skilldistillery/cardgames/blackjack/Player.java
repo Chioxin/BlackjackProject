@@ -6,6 +6,10 @@ import com.skilldistillery.cardgames.common.Hand;
 public abstract class Player {
 
 	private BlackjackHand hand;
+	
+	public Player () {
+		hand = new BlackjackHand();
+	}
 
 	public abstract String hitOrStand ();
 
