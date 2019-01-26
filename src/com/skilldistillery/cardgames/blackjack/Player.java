@@ -16,5 +16,9 @@ public abstract class Player {
 	public void discardHand() {
 		hand.clearHand();
 	}
+	
+	public int returnHandValue() {
+		return hand.getHandValue();
+	}
 
 }
