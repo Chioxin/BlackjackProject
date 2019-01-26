@@ -19,7 +19,8 @@ public class Blackjack {
 		int choice;
 		
 		do {
-//			myTable.startGame();
+			myTable.startGame();
+			myTable.runGame();
 			
 			choice = askToPlayAgain(kb);
 			

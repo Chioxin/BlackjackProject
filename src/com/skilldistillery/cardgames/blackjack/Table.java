@@ -30,25 +30,47 @@ public class Table {
 	}
 
 	public void startGame() {
-		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to
-										// the table.
-			dealOutARound(); // Just in case the Blackjack Authorities check.
+		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to the table.
+			dealOutARound();          // Just in case the Blackjack Authorities check.
 			Card c = deck.dealCard(); // Deals all the players a card first, then the dealer. Repeat one more time.
 			dealer.addCard(c);
 		}
 	}
 
 	public void runGame() {
+		
 		for (Player p : players) {
-			GameAction playerAction = GameAction.EXIT;
-			do {
-				playerAction = getPlayerDecision(p);
-			} while (playerAction != GameAction.EXIT);
-
+			handleTurn(p);
 		}
+		handleTurn(dealer);
+		clearTable();
 	}
 
-	private void cleanTable() {
+	private void handleTurn(Player p) {
+		GameAction playerAction = null;
+		boolean isBust = checkBust(p);
+
+		do {
+			playerAction = p.getAction();
+			if (playerAction == GameAction.HIT) {
+				performHit(p);
+				isBust = checkBust(p);
+			}
+		} while (playerAction != GameAction.STAND || isBust);
+
+		if (isBust) {
+			System.out.println();
+			if (p instanceof User) {
+				System.out.println("\tYou went over 21! That's a bust!");
+			} else {
+				System.out.println("\1Dealer went over 21! That's a bust!");
+			}
+			System.out.println();
+		}
+
+	}
+
+	private void clearTable() {
 		dealer.discardHand();
 		for (Player p : players) {
 			p.discardHand();
@@ -56,18 +78,9 @@ public class Table {
 		checkDeckRefresh(15);
 	}
 
-	private GameAction getPlayerDecision(Player p) {
-
-		return null;
-	}
-
 	private void performHit(Player player) {
 		Card c = deck.dealCard();
 		player.addCard(c);
-	}
-
-	private void performStand(Player player) {
-		// Probably not needed.
 	}
 
 	private void dealOutARound() {
