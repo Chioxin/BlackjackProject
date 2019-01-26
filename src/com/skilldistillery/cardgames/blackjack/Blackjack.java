@@ -51,7 +51,10 @@ public class Blackjack {
 	}
 
 	private void TEST_ONLY() {
-		System.out.println("\u2660 , \u2663 , \u2665 , \u2666");
+		Deck myDeck = new Deck();
+		myDeck.shuffle();
+		Card c = myDeck.dealCard();
+		System.out.println(c.toString());
 	}
 
 }

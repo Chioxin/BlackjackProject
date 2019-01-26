@@ -36,7 +36,7 @@ public class Card {
 	
 	@Override
 	public String toString() {
-		return myRank + " of " + mySuit;
+		return "[" + myRank.getRankToString() + " of " + mySuit.getSuit() + "'s]";
 	}
 
 	public int getValue() {

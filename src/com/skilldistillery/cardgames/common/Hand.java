@@ -12,6 +12,8 @@ public abstract class Hand {
 	}
 
 	public abstract int getHandValue();
+	
+	public abstract String displayHand();
 
 	public void addCard(Card c) {
 		myHand.add(c);
@@ -31,7 +33,7 @@ public abstract class Hand {
 		String s = "";
 		
 		for (Card card : myHand) {
-			s = s + "["+ card.toString() + "]";
+			s = s + card.toString() + " ";
 		}
 		
 		return s;
