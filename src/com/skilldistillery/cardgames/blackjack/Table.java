@@ -30,14 +30,14 @@ public class Table {
 	}
 
 	public void startGame() {
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to the table.
 			dealOutARound();
 			Card c = deck.dealCard();
 			dealer.addCard(c);
 		}
 	}
 
-	public void cleanTable() {
+	private void cleanTable() {
 		dealer.discardHand();
 		for (Player p : players) {
 			p.discardHand();
@@ -45,30 +45,46 @@ public class Table {
 		checkDeckRefresh(15);
 	}
 
-	public GameAction getPlayerDecision() {
+	private GameAction getPlayerDecision() {
 
 		return null;
 	}
 
-	public void performHit(Player player) {
+	private void performHit(Player player) {
 		Card c = deck.dealCard();
 		player.addCard(c);
 	}
 
-	public void performStand(Player player) {
+	private void performStand(Player player) {
 		// Probably not needed.
 	}
 
-	public void dealOutARound() {
+	private void dealOutARound() {
 		for (Player player : players) {
 			Card c = deck.dealCard();
 			player.addCard(c);
 		}
 	}
 
-	public void checkDeckRefresh(int n) {
+	private void checkDeckRefresh(int n) {
 		if (deck.checkDeckSize() < n) {
 			deck = new Deck();
+		}
+	}
+	
+	private boolean checkBlackjack(Player p) {
+		if (p.returnHandValue() == 21) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean checkBust(Player p) {
+		if (p.returnHandValue() > 21) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
