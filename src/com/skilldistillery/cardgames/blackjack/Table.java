@@ -2,6 +2,7 @@ package com.skilldistillery.cardgames.blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.skilldistillery.cardgames.common.Card;
 import com.skilldistillery.cardgames.common.Deck;
@@ -11,15 +12,18 @@ public class Table {
 	private Deck deck;
 	private Dealer dealer;
 	private List<Player> players;
+	private Scanner kb;
 	
-	public Table(int numPlayers) {
+	public Table(int numPlayers, Scanner kb) {
+		this.kb = kb;
 		deck = new Deck();
 		dealer = new Dealer();
 		players = new ArrayList<>();
 		
 		//Populate player list with users.
+		//Preplanning for multiplayer.
 		for (int i = 0; i < numPlayers; i++) {
-			Player aPlayer = new User();
+			Player aPlayer = new User(kb);
 			players.add(aPlayer);
 		}
 		

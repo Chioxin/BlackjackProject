@@ -1,5 +1,7 @@
 package com.skilldistillery.cardgames.blackjack;
 
+import java.util.Scanner;
+
 import com.skilldistillery.cardgames.common.Card;
 import com.skilldistillery.cardgames.common.Deck;
 
@@ -11,8 +13,18 @@ public class Blackjack {
 	}
 
 	private void run() {
-		TEST_ONLY();
-
+		Scanner kb = new Scanner(System.in);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		kb.close();
 	}
 	
 	
@@ -34,6 +46,11 @@ public class Blackjack {
 		
 		System.out.println(myHand.toString() + "Nothing to see here.");
 		
+	}
+	
+	private int getInput (Scanner kb) {
+	
+	return 0;
 	}
 
 }
