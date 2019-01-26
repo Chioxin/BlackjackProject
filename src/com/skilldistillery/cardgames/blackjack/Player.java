@@ -7,11 +7,12 @@ public abstract class Player {
 
 	private BlackjackHand hand;
 	
+	public abstract GameAction getAction ();
+
 	public Player () {
 		hand = new BlackjackHand();
 	}
 
-	public abstract String hitOrStand ();
 
 	public void addCard(Card c) {
 		hand.addCard(c);

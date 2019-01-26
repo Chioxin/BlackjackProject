@@ -1,6 +1,5 @@
 package com.skilldistillery.cardgames.blackjack;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.skilldistillery.cardgames.common.Card;
@@ -31,15 +30,19 @@ public class Blackjack {
 		
 		kb.close();
 	}private int askToPlayAgain(Scanner kb) {
+		UserKeyboard getInput = new UserKeyboard();
 		int choice;
-			
+		
+		System.out.println("Would you like to play again?");
 		do {
-			System.out.println("Would you like to play again?");
 			System.out.println("1.) YES, Take my money!!!");
 			System.out.println("2.) NO, Computers cheat!!!");
-			choice = getIntInput(kb);
+			choice = getInput.getInt(kb);
+//			choice = getIntInput(kb);
 			if (choice < 1 || choice > 2) {
-				System.out.println(choice + " is not a valid choice. Try again.");
+				System.out.println();
+				System.out.println("\t" + choice + " is not a valid choice. Try again.");
+				System.out.println();
 			}
 			
 		} while (choice != 2);

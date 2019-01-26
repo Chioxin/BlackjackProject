@@ -11,9 +11,11 @@ public class User extends Player {
 	}
 
 	@Override
-	public String hitOrStand() {
-		// TODO Auto-generated method stub
+	public GameAction getAction() {
+		
 		return null;
 	}
+	
+	
 
 }

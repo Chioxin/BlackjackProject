@@ -30,10 +30,21 @@ public class Table {
 	}
 
 	public void startGame() {
-		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to the table.
-			dealOutARound();
-			Card c = deck.dealCard();
+		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to
+										// the table.
+			dealOutARound(); // Just in case the Blackjack Authorities check.
+			Card c = deck.dealCard(); // Deals all the players a card first, then the dealer. Repeat one more time.
 			dealer.addCard(c);
+		}
+	}
+
+	public void runGame() {
+		for (Player p : players) {
+			GameAction playerAction = GameAction.EXIT;
+			do {
+				playerAction = getPlayerDecision(p);
+			} while (playerAction != GameAction.EXIT);
+
 		}
 	}
 
@@ -45,7 +56,7 @@ public class Table {
 		checkDeckRefresh(15);
 	}
 
-	private GameAction getPlayerDecision() {
+	private GameAction getPlayerDecision(Player p) {
 
 		return null;
 	}
@@ -71,7 +82,7 @@ public class Table {
 			deck = new Deck();
 		}
 	}
-	
+
 	private boolean checkBlackjack(Player p) {
 		if (p.returnHandValue() == 21) {
 			return true;
@@ -79,7 +90,7 @@ public class Table {
 			return false;
 		}
 	}
-	
+
 	private boolean checkBust(Player p) {
 		if (p.returnHandValue() > 21) {
 			return true;

@@ -3,7 +3,7 @@ package com.skilldistillery.cardgames.blackjack;
 public class Dealer extends Player {
 
 	@Override
-	public String hitOrStand() {
+	public GameAction getAction() {
 		// TODO Auto-generated method stub
 		return null;
 	}
