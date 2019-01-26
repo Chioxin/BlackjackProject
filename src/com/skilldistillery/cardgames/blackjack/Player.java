@@ -12,5 +12,9 @@ public abstract class Player {
 	public void addCard(Card c) {
 		hand.addCard(c);
 	}
+	
+	public void discardHand() {
+		hand.clearHand();
+	}
 
 }
