@@ -38,7 +38,6 @@ public class Blackjack {
 			System.out.println("1.) YES, Take my money!!!");
 			System.out.println("2.) NO, Computers cheat!!!");
 			choice = getInput.getInt(kb);
-//			choice = getIntInput(kb);
 			if (choice < 1 || choice > 2) {
 				System.out.println();
 				System.out.println("\t" + choice + " is not a valid choice. Try again.");
@@ -48,21 +47,6 @@ public class Blackjack {
 		} while (choice != 2);
 		
 		return choice;
-	}
-
-	private int getIntInput(Scanner kb) {
-		int input = 0;
-
-		do {
-			try {
-				System.out.print(">> ");
-				input = Integer.parseInt(kb.nextLine());
-			} catch (NumberFormatException e) {
-				System.err.println("Expected an Integer. Please enter an integer!");
-			}
-		} while (input == 0);
-
-		return input;
 	}
 
 	private void TEST_ONLY() {

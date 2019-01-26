@@ -4,8 +4,13 @@ public class Dealer extends Player {
 
 	@Override
 	public GameAction getAction() {
-		// TODO Auto-generated method stub
-		return null;
+
+		if (returnHandValue() < 17) {
+			return GameAction.HIT;
+
+		} else {
+			return GameAction.STAND;
+		}
 	}
 
 }
