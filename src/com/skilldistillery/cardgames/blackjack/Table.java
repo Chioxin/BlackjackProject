@@ -40,7 +40,7 @@ public class Table {
 
 	public void runGame() {
 		displayTable(false);
-
+		
 		for (Player p : players) { // preparing for multiplayer.
 			runTurn(p);
 		}
@@ -51,7 +51,9 @@ public class Table {
 				arePlayersBust = false;
 			}
 		}
-
+		
+		System.out.println();
+		displayTable(true);
 		if (!arePlayersBust) {       //if at least one player is not bust.
 			runTurn(dealer);         //run dealer turn.
 			if (dealer.isBust()) {   //if dealer is bust.
@@ -92,8 +94,8 @@ public class Table {
 			playerAction = p.getAction();
 			if (playerAction == GameAction.HIT) {
 				performHit(p);
+				displayTable(revealTable);
 			}
-			displayTable(revealTable);
 			p.setBust(checkBust(p));
 		} while (playerAction != GameAction.STAND && !p.isBust());
 		if (p.isBust()) {
@@ -131,14 +133,45 @@ public class Table {
 		}
 	}
 
-	private boolean checkBlackjack(Player p) {
-		if (p.returnHandValue() == 21) {
-			return true;
-		} else {
-			return false;
+	public boolean checkForBlackjack() {
+		boolean dealerBlackjack = false;
+		boolean playerBlackjack = false;
+		if (dealer.returnHandValue() == 21) {
+			dealerBlackjack = true;
 		}
+		
+		for (Player p : players) {
+			if (p.returnHandValue() == 21) {
+				playerBlackjack = true;
+			}
+		}
+		
+		if (dealerBlackjack && playerBlackjack) {
+			displayTable(true);
+			System.out.println();
+			System.out.println("\tBoth Dealer and Player have Blackjack!!!");
+			System.out.println();
+			clearTable();
+			return true;
+		} else if (dealerBlackjack) {
+			displayTable(true);
+			System.out.println();
+			System.out.println("\tDealer had Blackjack! House wins!!!");
+			System.out.println();
+			clearTable();
+			return true;
+		} else if (playerBlackjack) {
+			displayTable(true);
+			System.out.println();
+			System.out.println("\tPlayer had Blackjack! Player wins!!!");
+			System.out.println();
+			clearTable();
+			return true;
+		}
+		
+		return false;
 	}
-
+	
 	private boolean checkBust(Player p) {
 		if (p.returnHandValue() > 21) {
 			return true;
@@ -189,7 +222,9 @@ public class Table {
 	} 
 
 	private void displayTable(boolean reveal) {
-
+		System.out.println();
+		System.out.println("*************************************************************");
+		System.out.println("*************************************************************");
 		System.out.println();
 		System.out.println("====DEALER====");
 		System.out.println(dealer.showHand(reveal));
@@ -197,7 +232,7 @@ public class Table {
 		for (Player p : players) {
 			System.out.println();
 			System.out.println("====PLAYER====");
-			System.out.println(p.showHand(true));
+			System.out.println(p.showHand(true)); //We always want to have the player's hand revealed no matter what.
 		}
 
 	}

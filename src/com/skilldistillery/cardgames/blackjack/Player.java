@@ -1,9 +1,5 @@
 package com.skilldistillery.cardgames.blackjack;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.skilldistillery.cardgames.common.Card;
 
 public abstract class Player {
@@ -18,7 +14,6 @@ public abstract class Player {
 		hand = new BlackjackHand();
 		isBust = false;
 	}
-
 
 	public void addCard(Card c) {
 		hand.addCard(c);

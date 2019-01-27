@@ -17,6 +17,7 @@ public class User extends Player {
 		int choice = 0;
 		
 		do {
+		System.out.println();
 		System.out.println("Which action would you like to perform?");
 		System.out.println("1.) HIT");
 		System.out.println("2.) STAND");
