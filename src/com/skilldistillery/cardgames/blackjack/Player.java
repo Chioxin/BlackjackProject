@@ -1,16 +1,22 @@
 package com.skilldistillery.cardgames.blackjack;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.skilldistillery.cardgames.common.Card;
-import com.skilldistillery.cardgames.common.Hand;
 
 public abstract class Player {
 
 	private BlackjackHand hand;
+
+	private boolean isBust;
 	
 	public abstract GameAction getAction ();
 
 	public Player () {
 		hand = new BlackjackHand();
+		isBust = false;
 	}
 
 
@@ -25,5 +31,16 @@ public abstract class Player {
 	public int returnHandValue() {
 		return hand.getHandValue();
 	}
+	
+	public String showHand(boolean reveal) {
+		return hand.displayHand(reveal);
+	}
 
+	public boolean isBust() {
+		return isBust;
+	}
+
+	public void setBust(boolean isBust) {
+		this.isBust = isBust;
+	}
 }

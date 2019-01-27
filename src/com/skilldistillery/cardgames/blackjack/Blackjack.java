@@ -9,8 +9,8 @@ public class Blackjack {
 
 	public static void main(String[] args) {
 		Blackjack app = new Blackjack();
-//		app.run();
-		app.TEST_ONLY();
+		app.run();
+//		app.TEST_ONLY();
 	}
 
 	private void run() {
@@ -21,7 +21,6 @@ public class Blackjack {
 		do {
 			myTable.startGame();
 			myTable.runGame();
-			
 			choice = askToPlayAgain(kb);
 			
 		} while (choice != 2);
@@ -45,7 +44,7 @@ public class Blackjack {
 				System.out.println();
 			}
 			
-		} while (choice != 2);
+		} while (choice < 1 || choice > 2);
 		
 		return choice;
 	}
@@ -53,8 +52,12 @@ public class Blackjack {
 	private void TEST_ONLY() {
 		Deck myDeck = new Deck();
 		myDeck.shuffle();
-		Card c = myDeck.dealCard();
-		System.out.println(c.toString());
+		BlackjackHand myHand = new BlackjackHand();
+		for (int i = 0; i < 4; i++) {
+			Card c = myDeck.dealCard();
+			myHand.addCard(c);
+		}
+		System.out.println(myHand.displayHand(true));
 	}
 
 }

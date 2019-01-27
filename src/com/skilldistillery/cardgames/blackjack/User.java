@@ -7,6 +7,7 @@ public class User extends Player {
 	private Scanner kb;
 	
 	public User(Scanner kb) {
+		super();
 		this.kb = kb;
 	}
 
@@ -19,7 +20,6 @@ public class User extends Player {
 		System.out.println("Which action would you like to perform?");
 		System.out.println("1.) HIT");
 		System.out.println("2.) STAND");
-		System.out.print(">> ");
 		
 		choice = userInput.getInt(kb);
 		

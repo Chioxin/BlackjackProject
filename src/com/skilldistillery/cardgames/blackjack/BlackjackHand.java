@@ -23,16 +23,22 @@ public class BlackjackHand extends Hand {
 	}
 
 	@Override
-	public String displayHand() {
+	public String displayHand(boolean reveal) {
 		String s = "";
-		List<Card> hand = getCards();
-		for (Card card : hand) {
-//			s = s + "[" + 
-		}
 		
+		if (!reveal) {
+			List<Card> hand = getCards();
+			s = "" + hand.get(0).getValue() + " - ";
+			s = s + hand.get(0).toString() + "[***** of ***]";
+		} else {
+			s = "" + getHandValue() + " - ";
+			List<Card> hand = getCards();
+			for (Card card : hand) {
+				s = s + card.toString();
+			}
+		}
 		
 		return s;
 	}
-
 
 }

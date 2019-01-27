@@ -13,7 +13,7 @@ public abstract class Hand {
 
 	public abstract int getHandValue();
 	
-	public abstract String displayHand();
+	public abstract String displayHand(boolean isDealer);
 
 	public void addCard(Card c) {
 		myHand.add(c);

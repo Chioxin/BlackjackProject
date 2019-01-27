@@ -11,7 +11,7 @@ public class Table {
 
 	private Deck deck;
 	private Dealer dealer;
-	private List<Player> players;
+	private List<Player> players; //We are using a list to prepare for multiplayer.
 	private Scanner kb;
 
 	public Table(int numPlayers, Scanner kb) {
@@ -30,54 +30,85 @@ public class Table {
 	}
 
 	public void startGame() {
-		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to the table.
-			dealOutARound();          // Just in case the Blackjack Authorities check.
+		deck.shuffle();
+		for (int i = 0; i < 2; i++) { // This is done very intentionally, so as to accurately simulate dealing out to
+			dealOutARound();          // the table. Just in case the Blackjack Authorities check.
 			Card c = deck.dealCard(); // Deals all the players a card first, then the dealer. Repeat one more time.
 			dealer.addCard(c);
 		}
 	}
 
 	public void runGame() {
-		
-		for (Player p : players) {
-			handleTurn(p);
+		displayTable(false);
+
+		for (Player p : players) { // preparing for multiplayer.
+			runTurn(p);
 		}
-		handleTurn(dealer);
+
+		boolean arePlayersBust = true;
+		for (Player p : players) {
+			if (!p.isBust()) {
+				arePlayersBust = false;
+			}
+		}
+
+		if (!arePlayersBust) {       //if at least one player is not bust.
+			runTurn(dealer);         //run dealer turn.
+			if (dealer.isBust()) {   //if dealer is bust.
+				printPlayerWins();   //Print that the player has won!
+			} else {                 
+				findWinner();        //Otherwise, no one is bust. Find out who won.
+			}
+		} else {
+			printHouseWins();        //All players were bust, print out the house won.
+		}
+		
 		clearTable();
 	}
 
-	private void handleTurn(Player p) {
-		GameAction playerAction = null;
-		boolean isBust = checkBust(p);
+	private void findWinner() {
+		for (Player p : players) {
+			if (p.returnHandValue() > dealer.returnHandValue()) {
+				printPlayerWinsScore();
+			} else if (p.returnHandValue() == dealer.returnHandValue()) {
+				printTie();
+			} else {
+				printHouseWinsScore();
+			}
+		}
+	}
+
+
+	private void runTurn(Player p) {
+		GameAction playerAction;
+		boolean revealTable;
+		if (p instanceof Dealer) {
+			revealTable = true;
+		} else {
+			revealTable = false;
+		}
 
 		do {
 			playerAction = p.getAction();
 			if (playerAction == GameAction.HIT) {
 				performHit(p);
-				isBust = checkBust(p);
 			}
-		} while (playerAction != GameAction.STAND || isBust);
-
-		if (isBust) {
-			System.out.println();
-			if (p instanceof User) {
-				System.out.println("\tYou went over 21! That's a bust!");
-			} else {
-				System.out.println("\1Dealer went over 21! That's a bust!");
-			}
-			System.out.println();
+			displayTable(revealTable);
+			p.setBust(checkBust(p));
+		} while (playerAction != GameAction.STAND && !p.isBust());
+		if (p.isBust()) {
+			displayBust(p);
 		}
 
 	}
-	
-	private void displayTable() {
-		
-	}
+
 
 	private void clearTable() {
 		dealer.discardHand();
+		dealer.setBust(false);
 		for (Player p : players) {
 			p.discardHand();
+			p.setBust(false);
 		}
 		checkDeckRefresh(15);
 	}
@@ -115,5 +146,59 @@ public class Table {
 			return false;
 		}
 	}
+	
+	private void displayBust(Player p) {
+		System.out.println();
+		if (p instanceof User) {
+			System.out.println("\tYou went over 21! That's a bust!");
+		} else {
+			System.out.println("\tDealer went over 21! That's a bust!");
+		}
+		System.out.println();
+	}
 
+	private void printHouseWins() {
+		System.out.println();
+		System.out.println("\tPlayers are bust! House wins!!!");
+		System.out.println();
+	}
+	
+	private void printHouseWinsScore() {
+		System.out.println();
+		System.out.println("\tHouse has a better score! House wins!!!");
+		System.out.println();
+	}
+
+	private void printPlayerWins() {
+		System.out.println();
+		System.out.println("\tHouse is bust! Player win!!!");
+		System.out.println();
+	}
+	
+	private void printPlayerWinsScore() {
+		System.out.println();
+		System.out.println("\tPlayer has a better score! Player win!!!");
+		System.out.println();
+	}
+
+	private void printTie() {
+		System.out.println();
+		System.out.println("\tNobody won this round.");
+		System.out.println();
+		
+	} 
+
+	private void displayTable(boolean reveal) {
+
+		System.out.println();
+		System.out.println("====DEALER====");
+		System.out.println(dealer.showHand(reveal));
+
+		for (Player p : players) {
+			System.out.println();
+			System.out.println("====PLAYER====");
+			System.out.println(p.showHand(true));
+		}
+
+	}
 }

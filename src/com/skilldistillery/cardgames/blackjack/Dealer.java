@@ -11,6 +11,7 @@ public class Dealer extends Player {
 		} else {
 			return GameAction.STAND;
 		}
+		
 	}
-
+	
 }
