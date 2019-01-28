@@ -9,8 +9,6 @@ The goal was to recreate Blackjack as a console command game. There is a dealer,
 
 <br>
 <br>
-<br>
-<br>
 
 <dl>
 	<img src="https://github.com/Chioxin/BlackjackProject/blob/master/BlackjackUML.png?raw=true" alt="A Blackjack Table" ALIGN="right" width="450"/>
