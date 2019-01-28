@@ -7,9 +7,6 @@
 ### Project Description
 The goal was to recreate Blackjack as a console command game. There is a dealer, and a player. Each have their own hand, and the player is allowed to make a choice as to hit or stand while the dealer has to follow the rule of "always hit if less than 17 points." The game can properly account for Aces, and adjust for them based on the player's hand score. The game will call a win when someone gets Blackjack from the draw, otherwise normal Blackjack playing rules are in effect. This is our our first, very heavy, object oriented thinking program.
 
-<br>
-<br>
-
 <dl>
 	<img src="https://github.com/Chioxin/BlackjackProject/blob/master/BlackjackUML.png?raw=true" alt="A Blackjack Table" ALIGN="right" width="450"/>
 </dl>
